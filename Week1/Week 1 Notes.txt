@@ -1,0 +1,213 @@
+Setup:
+https://github.com/DataTalksClub/data-engineering-zoomcamp/tree/main/week_1_basics_n_setup/1_terraform_gcp
+
+Installed Terraform from here: https://developer.hashicorp.com/terraform/downloads
+
+GCP Setup here: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/week_1_basics_n_setup/1_terraform_gcp/2_gcp_overview.md#initial-setup
+
+Created a "DTC DE Course" on GCP.
+Had to create a Service Account in 'IAM and Admin" called "de-connect" and created a json key.
+
+Installing Google SDK:
+https://cloud.google.com/sdk/docs/install-sdk
+
+In powershell:
+(New-Object Net.WebClient).DownloadFile("https://dl.google.com/dl/cloudsdk/channels/rapid/GoogleCloudSDKInstaller.exe", "$env:Temp\GoogleCloudSDKInstaller.exe")
+
+& $env:Temp\GoogleCloudSDKInstaller.exe
+    
+
+For powershell we need for setting up the api security:
+
+Had to set this
+Set-ExecutionPolicy RemoteSigned
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser 
+
+Google Project ID: dtc-de-course-375402
+
+Setup Terraform
+
+# Refresh service-account's auth-token for this session
+gcloud auth application-default login
+
+# Initialize state file (.tfstate)
+.\terraform init
+
+# Check changes to new infra plan
+.\terraform plan -var="project=dtc-de-course-375402"
+
+Run:
+.\terraform init
+.\terraform plan -var="project=dtc-de-course-375402"
+.\terraform apply
+It asks for a gcp project id. Use "dtc-de-course-375402"
+
+Follow this for VM setup and docker and all that:
+https://www.youtube.com/watch?v=ae-CV2KfoN0&list=PL3MmuxUbc_hJed7dXYoJw8DoCuVHhGEQb
+
+Create a ssh key: https://cloud.google.com/compute/docs/connect/create-ssh-keys
+
+
+Nathan Low@HomePC-PC MINGW64 ~
+$ cd .ssh
+
+Nathan Low@HomePC-PC MINGW64 ~/.ssh
+$ ls
+known_hosts
+
+Nathan Low@HomePC-PC MINGW64 ~/.ssh
+$ ssh-keygen -t rsa -f gpc -C nlow -b 2048
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in gpc
+Your public key has been saved in gpc.pub
+The key fingerprint is:
+SHA256:n29u5BTpyKp7wiVNkjDdzXf8+Dpr+pFuMxEhLPJN7Wc nlow
+The key's randomart image is:
++---[RSA 2048]----+
+|     . . o . o   |
+|    o . o + = =  |
+|     o . o = = + |
+|      o . . + + E|
+|       +S. o . = |
+|      . o.o.+ ...|
+|     . o .o+  oo |
+|      o o  .+.B. |
+|      o=   ++=+= |
++----[SHA256]-----+
+
+Empty password, so we don't need to enter anything.
+
+SSH key stored in metadata of "Compute Engine"
+
+cat gpc.pub copy whole thing and put it in the key.
+
+VM Creation:
+ gcloud command line
+This is the gcloud command line with the parameters you have selected. gcloud reference
+
+$
+gcloud compute instances create de-trial --project=dtc-de-course-375402 --zone=us-east4-c --machine-type=e2-standard-4 --network-interface=network-tier=PREMIUM,subnet=default --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=153861755371-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --enable-display-device --create-disk=auto-delete=yes,boot=yes,device-name=de-trial,image=projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20230113,mode=rw,size=30,type=projects/dtc-de-course-375402/zones/us-east4-c/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --reservation-affinity=any
+
+ssh -i ~/.ssh/gpc nlow@34.86.143.17
+
+
+Install anaconda:
+
+wget https://repo.anaconda.com/archive/Anaconda3-2022.10-Linux-x86_64.sh
+bash Anaconda3-2022.10-Linux-x86_64.sh
+
+Created a config file in ~/.ssh to make it easier to log in.
+Now can ssh with: ssh de-trial
+
+Installing Docker:  
+sudo apt-get update
+sudo apt-get install docker.io
+
+Installed ssh remote in vs code, which can open the ssh with the little green icon in the bottom left. 
+You can choose the 'de-trial' desktop now it is in the config file in ~/.ssh
+
+Running docker with out sudo:
+https://github.com/sindresorhus/guides/blob/main/docker-without-sudo.md
+
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+sudo service docker restart
+sudo service docker.io restart
+
+
+Remember to log out and in again so you can run docker.
+
+Test with docker run hello-world
+
+Getting Docker Compose
+https://github.com/docker/compose/releases
+https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64
+
+mkdir bin
+cd bin
+wget https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-linux-x86_64 -O docker-compose
+chmod +x docker-compose
+
+Adding docker-compose to the path:
+nano ~/.bashrc 
+
+Add this at the end:
+export PATH="${HOME}/bin:${PATH}"
+
+
+"source ~/.bashrc" to load the path afterwards.
+
+Installing the docker images:
+git clone https://github.com/DataTalksClub/data-engineering-zoomcamp.git
+
+
+cd /data-engineering-zoomcamp/week_1_basics_n_setup/2_docker_sql
+docker-compose up -d
+Now the postgres and pgadmin images are set up.
+
+installing pgcli
+pip install pgcli.
+
+logging in to postgres:
+pgcli -h localhost -U root -d ny_taxi
+password is root.
+
+\dt -- list tables.
+exit to quit
+
+Also installed on conda with: conda install -c conda-forge pgcli
+
+Next is setting up the port so the local machine can see the docker.
+
+
+Setting up ssh on local network:
+https://linuxize.com/post/how-to-enable-ssh-on-ubuntu-20-04/
+
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo ufw allow ssh
+
+To create a key for the local linux box:
+ssh-keygen -t rsa -f cutiewood-linux -C nlow -b 2048
+Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in cutiewood-linux
+Your public key has been saved in cutiewood-linux.pub
+The key fingerprint is:
+SHA256:XXsxw/IthLNTtlHVLAiwV5FYYpml9ScOn5v3svm9qFU nlow
+The key's randomart image is:
++---[RSA 2048]----+
+|        ..+B*+ .=|
+|         o+=o+..o|
+|        . o * %..|
+|         o . & @ |
+|        S . + OE.|
+|             o.+ |
+|             .o .|
+|            . ooo|
+|           ...o==|
++----[SHA256]-----+
+
+Setting up a local ssh key:
+https://kb.iu.edu/d/aews
+
+Add the public  key to the ~/.ssh/authorized_keys file on cutiewood-linux. 
+
+To remove the need to use your password to log in:
+$ sudo apt-get install sshpass
+$ sshpass -p your_password ssh user@hostname
+
+Tunneling VNC through SSH:
+https://www.techrepublic.com/article/how-to-connect-to-vnc-using-ssh/
+
+Setting up postgres command line tools on windows: 
+https://stackoverflow.com/questions/72112754/importerror-no-pq-wrapper-available-when-importing-psycopg3
+
+
+pgAdmin login
+u:admin@admin.com
+P:root
