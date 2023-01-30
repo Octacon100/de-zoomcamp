@@ -1,0 +1,21 @@
+Running python in interactive mode on docker:
+docker run -it --rm --entrypoint /bin/bash public.ecr.aws/lambda/python:3.9
+
+pip list then shows the packages installed:
+bash-4.2# pip list
+Package    Version
+---------- -------
+pip        22.0.4
+setuptools 58.1.0
+
+
+Ctrl-d to exit docker interactive shell
+
+trying again with 
+docker run -it --rm --entrypoint /bin/bash python:3.9
+
+Package    Version
+---------- -------
+pip        22.0.4
+setuptools 58.1.0
+wheel      0.38.4

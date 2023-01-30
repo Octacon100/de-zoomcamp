@@ -211,3 +211,6 @@ https://stackoverflow.com/questions/72112754/importerror-no-pq-wrapper-available
 pgAdmin login
 u:admin@admin.com
 P:root
+
+Docker and sql notes here: https://github.com/ziritrion/dataeng-zoomcamp/blob/main/notes/1_intro.md#connecting-pgadmin-and-postgres-with-docker-networking
+
