@@ -13,6 +13,6 @@ deployment = Deployment.build_from_flow(
      "year" : 2020, 
      "month" : 11},
     storage=github_block,
-    #path="de-zoomcamp/github_deployed_code/"
+    path=""
 )
 deployment.apply()
