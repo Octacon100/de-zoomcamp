@@ -9,10 +9,10 @@ deployment = Deployment.build_from_flow(
     name="de_course_bq_upload",
     version="1",
     tags=["demo"],
-    parameters={"color": "Yellow",
-     "year" : 2019, 
-     "month" : 3}
+    parameters={"color": "Green",
+     "year" : 2020, 
+     "month" : 11},
     storage=github_block,
-    path="github_deployed_code"
+    #path="de-zoomcamp/github_deployed_code/"
 )
 deployment.apply()
