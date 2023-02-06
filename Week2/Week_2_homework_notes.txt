@@ -1,0 +1,6 @@
+Q1:
+
+09:33:55.093 | INFO    | Task run 'clean-b9fd7e03-0' - rows: 447770
+
+Q2:
+

@@ -132,3 +132,4 @@ Week1/.terraform/providers/registry.terraform.io/hashicorp/google/4.49.0/windows
 
 # data files
 /Week2/data
+*.parquet
