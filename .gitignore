@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 Week1/terraform.exe
 Week1/.terraform/providers/registry.terraform.io/hashicorp/google/4.49.0/windows_amd64/terraform-provider-google_v4.49.0_x5.exe
+
+# data files
+/data
