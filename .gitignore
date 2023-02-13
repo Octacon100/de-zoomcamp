@@ -133,3 +133,15 @@ Week1/.terraform/providers/registry.terraform.io/hashicorp/google/4.49.0/windows
 # data files
 /Week2/data
 *.parquet
+Week3/data/fhv_tripdata_2019-01.csv
+Week3/data/fhv_tripdata_2019-02.csv
+Week3/data/fhv_tripdata_2019-03.csv
+Week3/data/fhv_tripdata_2019-04.csv
+Week3/data/fhv_tripdata_2019-05.csv
+Week3/data/fhv_tripdata_2019-06.csv
+Week3/data/fhv_tripdata_2019-07.csv
+Week3/data/fhv_tripdata_2019-08.csv
+Week3/data/fhv_tripdata_2019-09.csv
+Week3/data/fhv_tripdata_2019-10.csv
+Week3/data/fhv_tripdata_2019-11.csv
+Week3/data/fhv_tripdata_2019-12.csv
