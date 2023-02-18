@@ -145,3 +145,7 @@ Week3/data/fhv_tripdata_2019-09.csv
 Week3/data/fhv_tripdata_2019-10.csv
 Week3/data/fhv_tripdata_2019-11.csv
 Week3/data/fhv_tripdata_2019-12.csv
+
+
+#postgresdb files
+/project/db_data
