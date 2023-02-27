@@ -153,3 +153,8 @@ Week3/data/fhv_tripdata_2019-12.csv
 #week5 data files
 /week5/fhvhv_tripdata_2021-06_files
 /Week5/data
+week5/fhvhv_tripdata_2021-06.csv.gz
+week5/fhvhv_tripdata_2021-06.csv.gz:Zone.Identifier
+week5/taxi_zone_lookup.csv:Zone.Identifier
+week5/taxi_zone_lookup.csv
+week5/data/raw/01/_tripdata__01.csv
